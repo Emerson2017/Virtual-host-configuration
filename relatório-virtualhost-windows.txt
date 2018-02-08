@@ -1,0 +1,47 @@
+CRIANDO VIRTUAL HOST EM AMBIENTE WINDOWS E A FERRAMENTA XAMPP
+
+-> Em "C:\Windows\System32\drivers\etc" edite o arquivo "hosts" da seguinte forma:
+
+Abaixo dessas linhas será adicionado seu host virtual e seu endereço:
+#	127.0.0.1       localhost
+#	::1             localhost
+
+Irá ficar parecido com (lembre-se de tirar o # indicando um comentário):
+#	127.0.0.1       localhost
+#	::1             localhost
+	127.0.0.1    o endereço que deseja, exemplo: "sas.com"
+
+
+-> Em "C:\xampp\apache\conf" edite o arquivo "httpd" da seguinte forma:
+
+Aproximadamente em torno da linha 500 do arquivo terá essas duas linhas comentadas:
+# Virtual hosts
+# Include conf/extra/httpd-vhosts.conf
+
+Descomente a segunda, ficando dessa forma:
+# Virtual hosts
+Include conf/extra/httpd-vhosts.conf
+
+
+-> Em "C:\xampp\apache\conf\extra" edite o arquivo "httpd-vhosts" da segiuinte forma:
+
+Aproximadamente em torno das linhas 14 e 15 do arquivo terá essas duas linhas:
+# You may use the command line option '-S' to verify your virtual host
+# configuration.
+
+Abaixo delas adicione essas três linhas:
+<Directory C:/xampp>
+  Require all granted
+</Directory>
+
+Ainda no mesmo arquivo, depois da última linha, adicione:
+
+<VirtualHost *:80>
+  DocumentRoot c:/xampp/htdocs
+  ServerName localhost
+</VirtualHost>
+
+<VirtualHost *:80>
+  DocumentRoot c:/xampp/htdocs/magento ( Aqui deve está direcionado para a pasta onde seu virtualhost está localizado)
+  ServerName sas.com (nome do seu virtualhost)
+</VirtualHost>
